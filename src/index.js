@@ -38,7 +38,32 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    // write your solution here
+    const regExp = /\**\*/;
+    let str = expr.split(regExp);
+    let resStr = "";
+    let symbolStr;
+    let word;
+    
+    for (let i =0; i< str.length; i++){
+        word = "";
+        symbolStr = "";
+        for (let j =0; j<str[i].length; j++){
+             if( +str[i].charAt(j) && +str[i].charAt(j+1)){
+                symbolStr = symbolStr + "-";
+            } 
+            else if (+str[i].charAt(j) || +str[i].charAt(j+1)){
+                symbolStr = symbolStr + ".";
+            }
+            console.log((j+1)%10);
+            if ( (j+2)%10===0){
+                word = word + MORSE_TABLE[symbolStr];
+                symbolStr ="";
+            }
+            j++;
+         }
+        resStr = resStr +" "+ word;
+    }
+    return resStr.trim();
 }
 
 module.exports = {
